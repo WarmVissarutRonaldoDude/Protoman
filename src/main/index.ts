@@ -3,7 +3,6 @@ import Store from 'electron-store';
 import path from 'path';
 import makeMenu from './menu';
 import { initializeEvents } from './events';
-import { checkUpdateAndNotify } from './notification';
 
 console.log('Initializing electron remote');
 /* eslint-disable @typescript-eslint/no-var-requires */
@@ -51,7 +50,9 @@ async function createWindow(): Promise<void> {
     console.log('save window bounds');
     config.set('winBounds', window.getBounds());
   });
-  checkUpdateAndNotify(window);
+
+  // TODO: notify later.
+  // checkUpdateAndNotify(window);
 }
 
 console.log('MAIN PROCESS STARTED');

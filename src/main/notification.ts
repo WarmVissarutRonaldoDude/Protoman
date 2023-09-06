@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import electron, { BrowserWindow } from 'electron';
 
-const RELEASE_URL = 'https://api.github.com/repos/spluxx/protoman/releases';
+const RELEASE_URL = 'https://api.github.com/repos/WarmVissarutRonaldoDude/Protoman/releases';
 const ICON_URL = 'https://raw.githubusercontent.com/spluxx/Protoman/master/assets/icon.png';
 
 // couldn't get https://github.com/pd4d10/electron-update-notification to work... :/
