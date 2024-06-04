@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { selectRequestMessageName, selectBodyType, JSONbodyChangedType } from './BodyInputActions';
 import { BodyType, RequestBody } from '../../../../models/request_builder';
-import { MessageValue, ProtoCtx } from '../../../../../core/protobuf/protobuf';
+import { MessageValue, ProtoCtx, ProtobufValue } from '../../../../../core/protobuf/protobuf';
 
 type Props = {
   bodyType: BodyType;
@@ -31,8 +31,9 @@ const sanitizedMessageValue = (message: MessageValue): MessageValue => {
   const sanitized = { ...message };
   sanitized.singleFields = sanitized.singleFields.filter(([_, value]) => !!value?.type?.tag);
   sanitized.repeatedFields = sanitized.repeatedFields.map(field => {
-    const newField = field;
-    newField[1] = newField[1].filter(value => !!value?.type?.tag);
+    const newField = [...field] as any; // construct new field to avoid readonly.
+    // [0] is field name, [1] is field values.
+    newField[1] = (newField[1] as ProtobufValue[]).filter(value => !!value?.type?.tag);
     return newField;
   });
   return sanitized;
