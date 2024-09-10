@@ -312,16 +312,22 @@ const OneOfFieldView: FunctionComponent<OFVProps> = ({
   handlers,
 }) => {
   const [name, value] = selectedField;
+  const [useNull, setUseNull] = useState<boolean>(false);
+  const isEditable = useNull ? false : editable;
+
   return (
     <Block>
       <FieldName>{fieldName}</FieldName>
       <span>: </span>
-      {editable && (
+      {isEditable && (
         <Select
           value={name}
           size="small"
           style={{ width: KEY_INPUT_WIDTH }}
-          onChange={(s: string): void => handlers.fieldChange('', s)}
+          onChange={(s: string): void => {
+            console.log('S ', s);
+            handlers.fieldChange('', s);
+          }}
         >
           {fieldOptions.map((option, idx) => (
             <Select.Option key={idx} value={option}>
@@ -330,8 +336,19 @@ const OneOfFieldView: FunctionComponent<OFVProps> = ({
           ))}
         </Select>
       )}
+      <FormGroup>
+        <FormControlLabel
+          control={<Checkbox defaultChecked={useNull} />}
+          onChange={(_, checked) => {
+            setUseNull(checked);
+
+            handlers.valueChange('', null);
+          }}
+          label={<Eyebrow>use NULL value for oneOf</Eyebrow>}
+        />
+      </FormGroup>
       <IndentationBlock>
-        <SingleFieldView editable={editable} fieldName={name} value={value} handlers={prefix(name, handlers)} />
+        <SingleFieldView editable={isEditable} fieldName={name} value={value} handlers={prefix(name, handlers)} />
       </IndentationBlock>
     </Block>
   );
