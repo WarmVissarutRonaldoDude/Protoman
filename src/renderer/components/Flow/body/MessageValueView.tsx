@@ -340,6 +340,7 @@ const OneOfFieldView: FunctionComponent<OFVProps> = ({
             setUseNull(checked);
 
             handlers.valueChange('', null);
+            prefix(name, handlers).valueChange('', null);
           }}
           label={<Eyebrow>use NULL value for oneOf</Eyebrow>}
         />
