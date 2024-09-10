@@ -324,10 +324,7 @@ const OneOfFieldView: FunctionComponent<OFVProps> = ({
           value={name}
           size="small"
           style={{ width: KEY_INPUT_WIDTH }}
-          onChange={(s: string): void => {
-            console.log('S ', s);
-            handlers.fieldChange('', s);
-          }}
+          onChange={(s: string): void => handlers.fieldChange('', s)}
         >
           {fieldOptions.map((option, idx) => (
             <Select.Option key={idx} value={option}>
